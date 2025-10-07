@@ -10,7 +10,7 @@ val twoMore: (Int) -> Int = {x -> x + 2}
 val oneLess: (Int) -> Int = {it - 1}
 val length: (String) -> Int = {it.length}
 
-fun operateWith(n:Int, operation: (Int) -> Int): Int {
+fun operateWithNumber(n:Int, operation: (Int) -> Int): Int {
     return operation(n);
 };
 
