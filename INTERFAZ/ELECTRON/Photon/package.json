@@ -1,0 +1,17 @@
+{
+  "name": "photon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^38.2.2",
+    "photon": "^4.1.1",
+    "xel": "^0.37.2"
+  }
+}
