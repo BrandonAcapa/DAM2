@@ -1,0 +1,115 @@
+Funciones:
+
+repeat(); --> x.repeat(5); se repetirá 5 veces
+typeof; --> typeof x == "string"
+
+----------------------------------------------------
+
+El método reduce usa una función que acumula un valor, procesando cada elemento (segundo parámetro) con el valor acumulado (primer parámetro). Como segundo parámetro de reduce, deberías pasar un valor inicial (en este ejemplo hemos pasado 0). Si no pasas un valor inicial, el primer elemento de un array será usado como tal (si el array está vacío devolvería undefined).
+
+array1.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue);
+
+Veamos este ejemplo
+
+ let a = [4, 21, 33, 12, 9, 54]; 
+
+console.log(a.reduce((total, num) => total + num, 0)); 
+
+// Suma todos los elementos del array. Imprime 133 
+
+console.log(a.reduce((max, num) => num > max? num : max, 0));
+
+ // Número máximo del array. Imprime 54
+
+ Para hacer lo mismo que reduce hace pero al revés, usaremos reduceRight. 
+
+let a = [4, 21, 33, 12, 9, 154]; 
+
+// Comienza con el último número y resta todos los otros números console.log(a.reduceRight((total, num) => total - num)); // Imprime 75
+
+ (Si no queremos enviarle un valor inicial, empezará con el valor de la última posición del array)
+
+-------------------------------------------------
+
+Math.max()
+
+Spread y rest
+Completion requirements
+Rest es la acción de transformar un grupo de parámetros en un array, y spread es justo lo opuesto, extraer los elementos de un array (o de un string) a variables. 
+
+Para usar rest en los parámetros de una función, se declara siempre como último parámetro (1 máximo) y se le ponen tres puntos‘...’ delante del mismo. 
+
+Este parámetro se transformará automáticamente en un array conteniendo todos los parámetros restantes que se le pasan a la función.
+
+ Si por ejemplo, el parámetro rest está en la tercera posición, contendrá todos los parámetros que se le pasen a excepción del primero y del segundo (a partir del tercero).
+
+EJEMPLO 1
+// Usa rest para encerrar el resto de valores específicos proporcionados 
+por el usuario en un array:
+
+function miBio(primerNombre, apellido, ...otraInfo) { 
+  return otraInfo;
+}
+
+// Invoca la función miBio pasando cinco argumentos a sus parámetros:
+miBio("Oluwatobi", "Sofela", "CodeSweetly", "Desarrollo Web", "Hombre");
+
+// La invocación anterior devolverá:
+["CodeSweetly", "Desarrollo Web", "Hombre"]
+EJEMPLO 2
+function imprimirUsuario(nombre, ...lenguajes) { console.log(nombre + " sabe " + lenguajes.length + " lenguajes: " + lenguajes.join(" - ")); } 
+
+
+
+imprimirUsuario("Pedro", "Java", "C#", "Python");
+
+// Imprime "Pedro sabe 3 lenguajes: Java - C# - Python" 
+
+ imprimirUsuario("María", "JavaScript", "Angular", "PHP", "HTML", "CSS"); 
+
+ // Imprime "María sabe 5 lenguajes: JavaScript - Angular - PHP - HTML - CSS"
+
+Spread es lo “opuesto” de rest. Si tenemos una variable que contiene un array, y ponemos los tres puntos ‘...’ delante de este, extraerá todos sus valores. 
+
+EJEMPLO 1
+
+// Define una función con tres parámetros:
+function miBio(primerNombre, apellido, empresa) { 
+  return `${primerNombre} ${apellido} dirije ${empresa}`;
+}
+
+// Utiliza spread para expandir los elementos de un arreglo en argumentos individuales:
+miBio(...["Oluwatobi", "Sofela", "CodeSweetly"]);
+
+// La invocación anterior devolverá:
+“Oluwatobi Sofela dirije CodeSweetly”
+
+Podemos usar la propiedad por ejemplo con el método Math.max, el cual recibe un número indeterminado de parámetros y devuelve el mayor de todos. 
+
+let nums = [12, 32, 6, 8, 23]; console.log(Math.max(nums)); 
+
+// Imprime NaN (array no es válido), deben ser números 
+
+console.log(Math.max(...nums)); 
+
+// Imprime 32 -> equivalente a Math.max(12, 32, 6 ,8 ,23) 
+
+Podemos usar también esta propiedad si necesitamos clonar un array. 
+
+let a = [1, 2, 3, 4]; 
+
+let b = a; 
+
+// Referencia el mismo array que 'a' (las modificaciones afectan a ambos).
+
+ let c = [...a]; 
+
+// Nuevo array (copia de a) -> contiene [1, 2, 3, 4]
+
+ También sirve para concatenar arrays
+
+ let a = [1, 2, 3, 4];
+
+ let b = [5, 6, 7, 8]; 
+
+ let c = [...a,...b, 9, 10]; // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
