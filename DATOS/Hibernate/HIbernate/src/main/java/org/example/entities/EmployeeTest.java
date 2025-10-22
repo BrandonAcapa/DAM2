@@ -1,6 +1,8 @@
 package org.example.entities;
 // import org.example.util.HibernateUtil;
+import jakarta.persistence.Entity;
 import org.hibernate.Session;
+import org.example.entities.Employee;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
 // import org.junit.jupiter.api.Test;

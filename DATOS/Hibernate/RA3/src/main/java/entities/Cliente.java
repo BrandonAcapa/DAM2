@@ -1,16 +1,27 @@
 package entities;
 
-public class Cliente {
-    private long id;
+import jakarta.persistence.*;
+
+import java.io.Serializable;
+
+@Entity
+//@Table(name="clientes") // opcional
+public class Cliente implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "first_name", length = 30, nullable = false)
     private String firstName;
+    @Column(name = "last_name")
     private String lastName;
+    @Column(unique = true)
     private String email;
     private int edad;
 
     public Cliente() {
     }
 
-    public Cliente(long id, String firstName, String lastName, String email, int edad) {
+    public Cliente(Long id, String firstName, String lastName, String email, int edad) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -18,8 +29,12 @@ public class Cliente {
         this.edad = edad;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -56,5 +71,16 @@ public class Cliente {
 
     public void setEdad(int edad) {
         this.edad = edad;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", edad=" + edad +
+                '}';
     }
 }

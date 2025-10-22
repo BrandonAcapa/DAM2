@@ -14,8 +14,10 @@
         <property name="current_session_context_class">thread</property>
         <!-- DB schema will be updated if needed -->
         <property name="hibernate.hbm2ddl.auto">create</property>
-        <!-- entities → //es importante añadir el mapeo a las clases creadas
-        <mapping class="org.example.entities.Employee"/> //la creamos a continuación
-        <mapping class="org.example.entities.Car"/> //la crearemos más adelante
-        </session-factory>
-       </hibernate-configuration>
+<!--        entities → //es importante añadir el mapeo a las clases creadas-->
+        <mapping class="org.example.entities.Employee"/>
+<!--        <mapping class="org.example.entities.Car"/> //la crearemos más adelante-->
+<!--        </session-factory>-->
+<!--        </hibernate-configuration>-->
+    </session-factory>
+</hibernate-configuration>

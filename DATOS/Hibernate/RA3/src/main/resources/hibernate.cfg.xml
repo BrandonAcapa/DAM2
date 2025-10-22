@@ -18,6 +18,6 @@ DTD 3.0//EN"
         <property name="hibernate.hbm2ddl.auto">create</property>
 
         <!-- entities -->
-        <mapping class="com.mycompany.hibernate.entities.Cliente"/>
+        <mapping class="entities.Cliente"/>
     </session-factory>
 </hibernate-configuration>
