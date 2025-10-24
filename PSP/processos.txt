@@ -1,0 +1,5 @@
+     UID     PID    PPID  TTY        STIME COMMAND
+      7J    1240    1239 pty0     08:41:51 /usr/bin/bash --login -i 
+      7J    1334       1 ?        09:12:43 ps -ef 
+      7J    1333    1240 pty0     09:12:43 "C:\Program Files\Common Files\Oracle\Java\javapath\java.exe" T2S1P2tasklistGuarda processos.txt ƒéàÿÿÿÿQA 
+      7J    1239       1 ?        08:41:51 usr/bin/mintty --nodaemon -o AppID=GitForWindows.Bash -o AppLaunchCmd=C:\Program Files\Git\git-bash.exe -o AppName=Git Bash -i C:\Program Files\Git\git-bash.exe --store-taskbar-properties -- /usr/bin/bash --login -i 

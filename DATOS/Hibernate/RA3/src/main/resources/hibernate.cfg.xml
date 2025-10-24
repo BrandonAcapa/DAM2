@@ -15,7 +15,7 @@ DTD 3.0//EN"
         <property name="format_sql">true</property>
         <property name="current_session_context_class">thread</property>
         <!-- DB schema will be updated if needed -->
-        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!-- entities -->
         <mapping class="entities.Cliente"/>
