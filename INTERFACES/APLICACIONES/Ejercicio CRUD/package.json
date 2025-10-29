@@ -1,5 +1,5 @@
 {
-  "name": "ejerciciogrid",
+  "name": "ejercicio-crud",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
@@ -9,7 +9,8 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "electron": "^38.4.0"
+  "dependencies": {
+    "@electron/remote": "^2.1.3",
+    "electron": "^39.0.0"
   }
 }
