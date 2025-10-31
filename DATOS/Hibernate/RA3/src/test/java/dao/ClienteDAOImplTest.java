@@ -76,4 +76,25 @@ public class ClienteDAOImplTest {
         // Puedes verificar que el objeto devuelto es el mismo que enviaste
         Assert.assertEquals(c1.getId(), clienteGuardado.getId());
     }
+
+    @Test
+    public void testUpdate(){
+        System.out.println("--- Update Cliente ---");
+
+        var c2 = new Cliente(4L, "Kylian", "Mbappé", "km@gmail.com", 25);
+
+        Cliente clienteActualizado = dao.update(c2);
+        Assert.assertNotNull("El cliente actualizado no debería ser nulo", clienteActualizado);
+        Assert.assertNotNull("El ID del cliente no debería ser nulo después de actualizarlo", c2.getId());
+        System.out.println("Cliente guardado con éxito");
+        Assert.assertEquals(c2.getId(), clienteActualizado.getId());
+   }
+
+   @Test
+   public void testDelete(){
+       System.out.println("--- Delete Cliente ---");
+
+       dao.deleteById(4L);
+       System.out.println("Cliente Eliminado con Éxito");
+   }
 }

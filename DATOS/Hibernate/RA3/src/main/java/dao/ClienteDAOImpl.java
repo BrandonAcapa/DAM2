@@ -87,11 +87,43 @@ public class ClienteDAOImpl implements ClienteDAO{
 
     @Override
     public Cliente update(Cliente cliente) {
-        return null;
+        Transaction transaction = null;
+
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            transaction = session.beginTransaction();
+            session.merge(cliente);
+            transaction.commit();
+            return cliente;
+        } catch (HibernateException e){
+            if (transaction != null && transaction.isActive()){
+                transaction.rollback();;
+            }
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public boolean deleteById(Long id) {
-        return false;
+        Transaction transaction = null;
+
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            transaction = session.beginTransaction();
+            Cliente cliente = session.find(Cliente.class, id);
+            if (cliente != null){
+                session.remove(cliente);
+                transaction.commit();
+                return true;
+            } else{
+                transaction.rollback();
+                return false;
+            }
+        } catch (HibernateException e){
+            if (transaction != null && transaction.isActive()){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        }
     }
 }
