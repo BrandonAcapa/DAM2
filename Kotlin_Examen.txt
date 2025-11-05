@@ -1,0 +1,1 @@
+Hacer una pantalla con un texto y un botón, apretas el botón y te lleva a una pantalla de bienvenida
