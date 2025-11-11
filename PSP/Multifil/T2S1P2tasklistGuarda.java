@@ -4,8 +4,8 @@ public class T2S1P2tasklistGuarda {
 
 	public static void main(String[] args) {
 		Runtime r = Runtime.getRuntime(); // objecte runtime
-		String comando = "ps -ef"; //Linux. Comando a executar i params
-		//String comando = "cmd /c T2S1P2tasklist /v"; //Windows. Comando a executar i params
+		//String comando = "ps -ef"; //Linux. Comando a executar i params
+		String comando = "cmd /c T2S1P2tasklist /v"; //Windows. Comando a executar i params
 		Process p = null; //inicialitze vble process
 
 		//control params entrada
