@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="31e98000-1cda-4349-8242-9923fc1dcba4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../Ejercicio_Electron_Matriculas.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Guia_Estilos_SavEat_Brandon.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../INTERFACES/APLICACIONES/Ejercicio CRUD/clientes.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../INTERFACES/APLICACIONES/Ejercicio CRUD/clientes.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../INTERFACES/APLICACIONES/Ejercicio CRUD/css/photon.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../../INTERFACES/APLICACIONES/Ejercicio CRUD/css/photon.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../INTERFACES/APLICACIONES/Ejercicio CRUD/functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../INTERFACES/APLICACIONES/Ejercicio CRUD/functions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../INTERFACES/APLICACIONES/Ejercicio CRUD/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../INTERFACES/APLICACIONES/Ejercicio CRUD/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../INTERFACES/APLICACIONES/Ejercicio CRUD/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../INTERFACES/APLICACIONES/Ejercicio CRUD/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../KOTLIN/EXAMEN/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../KOTLIN/EXAMEN/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../KOTLIN/EXAMEN/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../KOTLIN/EXAMEN/.idea/deploymentTargetSelector.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../KOTLIN/EXAMEN/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../KOTLIN/EXAMEN/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../KOTLIN/EXAMEN/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../KOTLIN/EXAMEN/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../KOTLIN/PRUEBA2/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../KOTLIN/PRUEBA2/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../KOTLIN/nuevo/PMDM-Android-Compose" beforeDir="false" afterPath="$PROJECT_DIR$/../../../KOTLIN/nuevo/PMDM-Android-Compose" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;BrandonAcapa&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/BrandonAcapa/DAM2.git&quot;,
+    &quot;accountId&quot;: &quot;7f3e4566-d75f-4412-a586-05f0bb617ef2&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="35SwxVy5lsHxjGUJewYdbiCvWN5" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/7J/Documents/DAM2/DATOS/Spring Data/Ut4 Pt1/src/main/java/org/example/Main.java&quot;
+  }
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.25557.131" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="31e98000-1cda-4349-8242-9923fc1dcba4" name="Changes" comment="" />
+      <created>1763117028835</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1763117028835</updated>
+    </task>
+    <servers />
+  </component>
+</project>

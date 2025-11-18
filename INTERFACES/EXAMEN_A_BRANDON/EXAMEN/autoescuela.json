@@ -1,0 +1,12 @@
+[
+    {
+        "nombre": "Pepito Conejo",
+        "edad": 25,
+        "carnet de conducir": true
+    },
+    {
+        "nombre": "Ana Barberá",
+        "edad": 90,
+        "carnet de conducir": false
+    }
+]
