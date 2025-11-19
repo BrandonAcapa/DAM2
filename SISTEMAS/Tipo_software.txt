@@ -1,8 +1,0 @@
-- Software libre: Puede ser utilizado, copiado, distribuirlo y modificado. Normalmente llevan clausulas en el contrato para que
-su uso no sea con fines comerciales.
-- Software propietario: Sin permiso del propietario queda prohibida la copia, redistribución o modificación
-- Software comercial: Para su disponibilidad hay que realizar un pago
-- Software de dominio público: Es software sin copyright. Se permite uso, copia, modificación o redistribución con o sin fines de lucro
-- Freeware: Permiten la redistribución pero no la
-modificación, y que a veces incluyen su código fuente.
-- Shareware: Puede ser redistribuido, pero su uso está limitado en tiempo o en funciones 
