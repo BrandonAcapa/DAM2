@@ -20,7 +20,7 @@ public class Coche {
         this.anyo = anyo;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -32,7 +32,7 @@ public class Coche {
         return anyo;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

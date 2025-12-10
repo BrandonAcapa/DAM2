@@ -1,8 +1,7 @@
 package com.example.spring_api;
 
-import com.example.spring_api.controller.CocheController;
 import com.example.spring_api.entities.Coche;
-import org.junit.jupiter.api.Test;
+import com.example.spring_api.repository.CocheRepository;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.boot.SpringApplication;
@@ -20,8 +19,9 @@ public class CocheTest {
         Coche coche1 = new Coche(null, "BMW", 2015);
         Coche coche2 = new Coche(null, "Mercedes", 2020);
 
-        CocheController respository = context.getBean(CocheController.class);
+        CocheRepository respository = context.getBean(CocheRepository.class);
 
         respository.save(coche1);
+        respository.save(coche2);
     }
 }
