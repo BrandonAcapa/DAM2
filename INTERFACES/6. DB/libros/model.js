@@ -37,5 +37,4 @@ async function insertarLibros(libros){
     }   
 }
 
-module.exports = Libro;
-insertarLibros(librosArray);
+module.exports = { Libro, insertarLibros };
