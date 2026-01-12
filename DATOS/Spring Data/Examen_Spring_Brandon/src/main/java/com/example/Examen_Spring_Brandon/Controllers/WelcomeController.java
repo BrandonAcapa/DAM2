@@ -1,4 +1,4 @@
-package com.example.spring_api.controller;
+package com.example.Examen_Spring_Brandon.Controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,8 +13,7 @@ public class WelcomeController {
                 " <title>Welcome</title>\n" +
                 " </head>\n" +
                 " <body>\n" +
-                " <h1>Welcome to Spring Boot!</h1>\n" +
-                " <a class=\"btn btn-primary\" href=\"https://www.google.com\"> Google </a>\n" +
+                " <h1>Bienvenido a la biblioteca de Brandon Quispe</h1>\n" +
                 " </body>\n" +
                 "</html>";
     }

@@ -21,7 +21,9 @@ public class CocheTest {
 
         System.out.println("Actualmente hay " + repository.count() + " coches en el respostorio");
         Coche coche1 = new Coche(null, "BMW", 2015);
+        Coche coche2 = new Coche(null, "Audi", 2018);
         repository.save(coche1);
+        repository.save(coche2);
         System.out.println("Actualmente hay " + repository.count() + " coches en el respostorio\n");
         System.out.println("Coches recuperados:\n" + repository.findAll() + "\n");
     }
