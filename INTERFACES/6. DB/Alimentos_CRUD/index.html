@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alimentos — CRUD minimal (HTML)</title>
+    <meta name="description" content="Interfaz HTML minimal para CRUD de alimentos (solo HTML).">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Alimentos</h1>
+            <p>Información Nutricional</p>
+        </header>
+
+        <section aria-labelledby="list-title">
+            <!-- <h2 id="list-title">Listado de alimentos</h2> -->
+            <div id="cardsContainer" class="cards-grid">
+                <!-- Cards cargadas dinámicamente desde app.js -->
+            </div>
+        </section>
+
+        <section aria-labelledby="form-title">
+            <h2 id="form-title">Agregar/editar alimento</h2>
+            <form id="foodForm">
+                <input type="hidden" id="foodId" name="foodId">
+
+                <div>
+                    <label for="idField">ID</label>
+                    <input id="idField" name="idField" placeholder="">
+                </div>
+
+                <div>
+                    <label for="name">Nombre</label>
+                    <input id="name" name="name" required placeholder="">
+                </div>
+
+                <div>
+                    <label for="category">Categoría</label>
+                    <select id="category" name="category">
+                        <option value="Fruta">Fruta</option>
+                        <option value="Verdura">Verdura</option>
+                        <option value="Pescado">Pescado</option>
+                        <option value="Carne">Carne</option>
+                        <option value="Lácteo">Lácteo</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+
+                <fieldset>
+                    <legend>Valores por unidad (g)</legend>
+                    <div>
+                        <label for="fat">Grasas (g)</label>
+                        <input id="fat" name="fat" type="number" min="0" step="0.1" value="0">
+                    </div>
+                    <div>
+                        <label for="carb">Carbohidratos (g)</label>
+                        <input id="carb" name="carb" type="number" min="0" step="0.1" value="0">
+                    </div>
+                    <div>
+                        <label for="protein">Proteínas (g)</label>
+                        <input id="protein" name="protein" type="number" min="0" step="0.1" value="0">
+                    </div>
+                </fieldset>
+
+                <div>
+                    <label for="calories">Calorías (kcal) — calculadas</label>
+                    <input id="calories" name="calories" readonly placeholder="Calculadas automáticamente">
+                </div>
+
+                <div>
+                    <button type="submit">Guardar</button>
+                    <button type="reset">Limpiar</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

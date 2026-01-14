@@ -1,0 +1,179 @@
+
+/* Simple, classic CSS (no variables) */
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: #f3f8f4; /* pastel green background */
+	color: #1f3d2f; /* dark pastel green text */
+	margin: 20px;
+}
+
+main {
+	max-width: 980px;
+	margin: 0 auto;
+}
+
+header h1 {
+	margin: 0 0 6px;
+	font-size: 1.4rem;
+}
+
+header p {
+	margin: 0 0 14px;
+	color: #4f6b59;
+}
+
+/* Form styling */
+form {
+	background-color: #ffffff;
+	padding: 12px;
+	border-radius: 8px;
+	border: 1px solid #dfeee0;
+	margin-bottom: 16px;
+}
+
+form div {
+	margin-bottom: 10px;
+}
+
+label {
+	display: block;
+	font-size: 14px;
+	margin-bottom: 4px;
+	color: #406442;
+}
+
+input[type="text"],
+input[type="number"],
+input[readonly],
+select {
+	width: 100%;
+	padding: 8px;
+	border-radius: 4px;
+	border: 1px solid #cfe5d6;
+	background: #ffffff;
+}
+
+fieldset {
+	padding: 8px;
+	border-radius: 6px;
+	border: 1px solid #e6f1e8;
+}
+
+legend {
+	font-size: 13px;
+	color: #476a56;
+}
+
+/* Buttons */
+button {
+	background-color: #1f3d2f;
+	color: #ffffff;
+	border: none;
+	padding: 8px 12px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+button[type="reset"] {
+	background-color: transparent;
+	color: #1f3d2f;
+	border: 1px solid #cfe5d6;
+}
+
+/* Table */
+table {
+	width: 100%;
+	border-collapse: collapse;
+	background: #ffffff;
+	border: 1px solid #e6efe6;
+}
+
+th, td {
+	padding: 10px 12px;
+	text-align: left;
+	border-bottom: 1px solid #eef6ee;
+	font-size: 14px;
+}
+
+th {
+	background: #eaf7ec;
+	color: #1f3d2f;
+	font-weight: bold;
+}
+
+td button {
+	margin-right: 6px;
+	padding: 6px 8px;
+	border-radius: 6px;
+	border: none;
+	cursor: pointer;
+}
+
+td button:first-child {
+	background: #8bc34a; /* edit */
+	color: #fff;
+}
+
+td button:last-child {
+	background: #ef4444; /* delete */
+	color: #fff;
+}
+
+/* Simple responsive: stack rows on small screens */
+@media (max-width: 360px) {
+	table, thead, tbody, th, td, tr { display: block; }
+ 	thead { display: none; }
+ 	tr { margin-bottom: 12px; padding: 12px; background: #ffffff; border-radius: 6px; }
+ 	td { display: flex; justify-content: space-between; padding: 6px 8px; border-bottom: none; }
+}
+
+/* Cards layout */
+.cards-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 12px;
+	margin-bottom: 16px;
+}
+
+.card {
+	background: #ffffff;
+	border: 1px solid #e6efe6;
+	border-radius: 8px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+.card-image {
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	overflow: hidden;
+	background: #f0f4f0;
+}
+
+.card-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.card-body {
+	padding: 10px;
+}
+
+.card-body h3 {
+	margin: 0 0 6px;
+	font-size: 1rem;
+}
+
+.card-body .meta { color: #4f6b59; margin: 4px 0; }
+.card-body .macros { font-size: 13px; color: #3b5a45; margin: 6px 0; }
+.card-body .cal { font-weight: 600; margin: 6px 0; }
+
+.card-actions { margin-top: 8px; }
+.card-actions button { margin-right: 8px; }
+
+@media (max-width: 360px) {
+	.cards-grid { grid-template-columns: 1fr; }
+}
