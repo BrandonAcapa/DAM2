@@ -174,6 +174,10 @@ td button:last-child {
 .card-actions { margin-top: 8px; }
 .card-actions button { margin-right: 8px; }
 
+/* Card specific button colors */
+.card-actions .edit-btn { background: #1f3d2f; color: #fff; }
+.card-actions .delete-btn { background: #ef4444; color: #fff; }
+
 @media (max-width: 360px) {
 	.cards-grid { grid-template-columns: 1fr; }
 }

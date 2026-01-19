@@ -4,7 +4,7 @@ require('@electron/remote/main').initialize()
 function createWindow() {
     mainWindow = new BrowserWindow({
         width: 390,
-        height: 844,
+        height: 700,
         useContentSize: true,
         minWidth: 320,
         minHeight: 568,

@@ -22,18 +22,16 @@
         </section>
 
         <section aria-labelledby="form-title">
-            <h2 id="form-title">Agregar/editar alimento</h2>
+            <h2 id="form-title">Agregar alimento</h2>
             <form id="foodForm">
-                <input type="hidden" id="foodId" name="foodId">
-
-                <div>
-                    <label for="idField">ID</label>
-                    <input id="idField" name="idField" placeholder="">
-                </div>
-
                 <div>
                     <label for="name">Nombre</label>
                     <input id="name" name="name" required placeholder="">
+                </div>
+
+                <div>
+                    <label for="image">Imagen</label>
+                    <input id="image" name="image" type="file" accept="image/*">
                 </div>
 
                 <div>
@@ -70,7 +68,69 @@
                 </div>
 
                 <div>
-                    <button type="submit">Guardar</button>
+                    <button type="submit">Crear</button>
+                    <button type="reset">Limpiar</button>
+                </div>
+            </form>
+        </section>
+
+        <section aria-labelledby="edit-form-title">
+            <h2 id="edit-form-title">Editar alimento</h2>
+            <form id="editForm">
+                <input type="hidden" id="editFoodId" name="editFoodId">
+
+                <div>
+                    <label for="editSelect">Selecciona alimento</label>
+                    <select id="editSelect">
+                        <option value="" disabled selected>Selecciona...</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="name_edit">Nombre</label>
+                    <input id="name_edit" name="name_edit" required placeholder="">
+                </div>
+
+                <div>
+                    <label for="image_edit">Imagen</label>
+                    <input id="image_edit" name="image_edit" type="file" accept="image/*">
+                </div>
+
+                <div>
+                    <label for="category_edit">Categoría</label>
+                    <select id="category_edit" name="category_edit">
+                        <option value="Fruta">Fruta</option>
+                        <option value="Verdura">Verdura</option>
+                        <option value="Pescado">Pescado</option>
+                        <option value="Carne">Carne</option>
+                        <option value="Lácteo">Lácteo</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+
+                <fieldset>
+                    <legend>Valores por unidad (g)</legend>
+                    <div>
+                        <label for="fat_edit">Grasas (g)</label>
+                        <input id="fat_edit" name="fat_edit" type="number" min="0" step="0.1" value="0">
+                    </div>
+                    <div>
+                        <label for="carb_edit">Carbohidratos (g)</label>
+                        <input id="carb_edit" name="carb_edit" type="number" min="0" step="0.1" value="0">
+                    </div>
+                    <div>
+                        <label for="protein_edit">Proteínas (g)</label>
+                        <input id="protein_edit" name="protein_edit" type="number" min="0" step="0.1" value="0">
+                    </div>
+                </fieldset>
+
+                <div>
+                    <label for="calories_edit">Calorías (kcal) — calculadas</label>
+                    <input id="calories_edit" name="calories_edit" readonly placeholder="Calculadas automáticamente">
+                </div>
+
+                <div>
+                    <button type="submit">Guardar cambios</button>
                     <button type="reset">Limpiar</button>
                 </div>
             </form>
