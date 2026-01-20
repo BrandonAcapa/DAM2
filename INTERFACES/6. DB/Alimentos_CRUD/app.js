@@ -1,18 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
   const fs = (typeof require === 'function') ? require('fs') : null;
   const nodeRequire = (typeof require === 'function') ? require : null;
+  const path = nodeRequire ? nodeRequire('path') : null;
+
+  if (!fs || !path) console.warn('Atención: `fs` o `path` no disponibles en este entorno; manejo de imágenes limitado.');
 
   let Alimento;
 
-  // helpers for image handling and id generation
-  const path = nodeRequire ? nodeRequire('path') : null;
+  // normaliza un nombre para usar en filenames (minusculas, guiones bajos, sin caracteres raros)
   function sanitizeName(name) {
+    if (name === undefined || name === null) return '';
     return name.toString().trim().toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_\-\.]/g, '');
   }
 
+  // VERIFICAR QUE EXISTA LA CARPETA img/
   function ensureImgDir() {
     try {
-      const dir = path.join(process.cwd(), 'img');
+      const dir = path.join(__dirname, 'img');
       if (!fs.existsSync(dir)) fs.mkdirSync(dir);
       return dir;
     } catch (err) {
@@ -21,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // GUARDAR IMAGENES SUBIDAS
   async function copyImageFile(fileOrPath, targetName) {
     try {
       const dir = ensureImgDir();
@@ -34,14 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return `img/${filename}`;
       }
 
-      // assume File object from input
       const file = fileOrPath;
       const origName = file.name || '';
       const ext = path.extname(origName) || '';
       const filename = targetName + ext;
       const dest = path.join(dir, filename);
 
-      // read file contents via arrayBuffer (browser File API)
       const arrayBuffer = await file.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       fs.writeFileSync(dest, buffer);
@@ -57,7 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!oldRelPath) return null;
       const dir = ensureImgDir();
       if (!dir) return null;
-      const oldPath = path.join(process.cwd(), oldRelPath);
+      const normalizedOld = String(oldRelPath).replace(/^\.\//, '');
+      const oldPath = path.join(__dirname, normalizedOld);
       if (!fs.existsSync(oldPath)) return null;
       const ext = path.extname(oldPath) || '';
       const newFilename = newName + ext;
@@ -70,25 +74,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // IMAGEN POR DEFECTO
   const placeholderDataUrl = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200"><rect width="100%" height="100%" fill="#eef6ef"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#9aa" font-family="sans-serif" font-size="18">Sin imagen</text></svg>');
 
+  // BUSCA LA IMAGEN EN img/ Y SI NO ESTÁ, DEVUELVE LA IMAGEN POR DEFECTO
   function resolveImageUrl(record) {
     try {
       if (!record) return placeholderDataUrl;
       const imgField = record.imagen || '';
-      const projectRoot = process.cwd();
+      const projectRoot = __dirname;
       if (imgField) {
-        const full = path.join(projectRoot, imgField);
-        if (fs.existsSync(full)) return imgField;
-      }
-
-      // try to find by sanitized name in img/ directory
-      const dir = path.join(projectRoot, 'img');
-      if (fs.existsSync(dir)) {
-        const files = fs.readdirSync(dir);
-        const base = sanitizeName(record.nombre || '');
-        const match = files.find(f => sanitizeName(path.basename(f, path.extname(f))) === base);
-        if (match) return `img/${match}`;
+        const normalized = String(imgField).replace(/^\.\//, '');
+        const candidate = path.isAbsolute(imgField) ? imgField : path.join(projectRoot, normalized);
+        if (fs.existsSync(candidate)) {
+          if (normalized.startsWith('img/')) return normalized;
+          return `img/${path.basename(normalized)}`;
+        }
       }
 
       return placeholderDataUrl;
@@ -97,6 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // OBTIENER PRÓXIMO ID DISPONIBLE
   async function getNextId() {
     try {
       const last = await Alimento.findOne({}).sort({ id: -1 }).limit(1);
@@ -107,6 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // INICIA BASE DE DATOS Y CARGA ALIMENTOS
   async function initDBAndLoad() {
     if (!nodeRequire) {
       console.log('No hay require disponible en este entorno.');
@@ -128,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // CARGAR LAS CARDS DEALIMENTOS EN LA INTERFAZ
   async function cargarAlimentos() {
     try {
       const alimentos = await Alimento.find({}).sort({ id: 1 });
@@ -138,8 +142,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const card = document.createElement('article');
         card.className = 'card';
         const imageUrl = resolveImageUrl(a);
+        const imgSrc = (typeof imageUrl === 'string' && imageUrl.startsWith('data:')) ? imageUrl : (imageUrl ? `${imageUrl}?v=${Date.now()}` : imageUrl);
         card.innerHTML = `
-          <div class="card-image"><img src="${imageUrl}" alt="${a.nombre}"></div>
+          <div class="card-image"><img src="${imgSrc}" alt="${a.nombre}"></div>
           <div class="card-body">
             <h3>${a.nombre} </h3>
             <p class="meta">${a.categoria}</p>
@@ -154,12 +159,11 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(card);
       });
 
-      // populate edit select (sorted alphabetically by nombre)
+      // RELLENAR SELECT DE EDICIÓN
       const editSelect = document.getElementById('editSelect');
       if (editSelect) {
-        // copy and sort by name
+        // ORDENAR ALIMENTOS POR NOMBRE
         const byName = alimentos.slice().sort((x, y) => x.nombre.localeCompare(y.nombre, 'es', { sensitivity: 'base' }));
-        // clear and add placeholder
         editSelect.innerHTML = '<option value="" disabled selected>Selecciona...</option>';
         byName.forEach(a => {
           const opt = document.createElement('option');
@@ -167,26 +171,34 @@ document.addEventListener('DOMContentLoaded', () => {
           opt.textContent = a.nombre;
           editSelect.appendChild(opt);
         });
-        // if an item is currently selected in edit form, keep selection
+        // SI HAY UN ALIMENTO SIENDO EDITADO, SELECCIONARLO
         const currentEditId = document.getElementById('editFoodId')?.value;
         if (currentEditId) editSelect.value = currentEditId;
       }
 
-      // attach events for edit and delete buttons
+      // AÑADIR EVENTOS A BOTONES DE EDITAR
       container.querySelectorAll('.edit-btn').forEach(btn => {
         btn.addEventListener('click', async (e) => {
           const id = parseInt(e.currentTarget.dataset.id, 10);
           const doc = await Alimento.findOne({ id });
-          if (doc) loadIntoEditForm(doc);
-          const editSection = document.getElementById('editForm');
-          if (editSection) editSection.scrollIntoView({ behavior: 'smooth' });
+          if (doc) {
+            // CAMBIAR A MODO EDITAR
+            const modeSwitch = document.getElementById('modeSwitch');
+            if (modeSwitch) {
+              modeSwitch.checked = true;
+              modeSwitch.dispatchEvent(new Event('change'));
+            }
+            loadIntoEditForm(doc);
+            const foodForm = document.getElementById('foodForm');
+            if (foodForm) foodForm.scrollIntoView({ behavior: 'smooth' });
+          }
         });
       });
 
+      // AÑADIR EVENTOS A BOTONES DE ELIMINAR
       container.querySelectorAll('.delete-btn').forEach(btn => {
         btn.addEventListener('click', async (e) => {
           const id = parseInt(e.currentTarget.dataset.id, 10);
-          // fetch doc to show name in confirm
           let nombre = id;
           try {
             const doc = await Alimento.findOne({ id });
@@ -205,19 +217,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // RELLENA EL FORMULARIO DE EDICIÓN
   function loadIntoEditForm(doc) {
     const hid = document.getElementById('editFoodId');
     if (hid) hid.value = doc.id;
     const select = document.getElementById('editSelect');
     if (select) select.value = doc.id;
-    document.getElementById('name_edit').value = doc.nombre;
-    document.getElementById('category_edit').value = doc.categoria;
-    document.getElementById('fat_edit').value = doc.grasas;
-    document.getElementById('carb_edit').value = doc.carbohidratos;
-    document.getElementById('protein_edit').value = doc.proteinas;
-    document.getElementById('calories_edit').value = doc.calorias;
+    const nameEl = document.getElementById('name'); if (nameEl) nameEl.value = doc.nombre;
+    const catEl = document.getElementById('category'); if (catEl) catEl.value = doc.categoria;
+    const fatEl = document.getElementById('fat'); if (fatEl) fatEl.value = doc.grasas;
+    const carbEl = document.getElementById('carb'); if (carbEl) carbEl.value = doc.carbohidratos;
+    const protEl = document.getElementById('protein'); if (protEl) protEl.value = doc.proteinas;
+    const calEl = document.getElementById('calories'); if (calEl) calEl.value = doc.calorias;
   }
 
+  // CALCULA CALORÍAS EN FUNCIÓN DE LOS VALORES NUTRICIONALES
   function calculateCaloriesFor(ids) {
     const fat = parseFloat(document.getElementById(ids.fat).value) || 0;
     const carb = parseFloat(document.getElementById(ids.carb).value) || 0;
@@ -226,24 +240,40 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById(ids.calories).value = Math.round(kcal);
   }
 
-  // bind calculators for create and edit forms (if elements exist)
+  // CALCULAR CALORÍAS AL CAMBIAR VALORES NUTRICIONALES
   if (document.getElementById('fat')) {
     document.getElementById('fat').addEventListener('input', () => calculateCaloriesFor({ fat: 'fat', carb: 'carb', protein: 'protein', calories: 'calories' }));
     document.getElementById('carb').addEventListener('input', () => calculateCaloriesFor({ fat: 'fat', carb: 'carb', protein: 'protein', calories: 'calories' }));
     document.getElementById('protein').addEventListener('input', () => calculateCaloriesFor({ fat: 'fat', carb: 'carb', protein: 'protein', calories: 'calories' }));
   }
-  if (document.getElementById('fat_edit')) {
-    document.getElementById('fat_edit').addEventListener('input', () => calculateCaloriesFor({ fat: 'fat_edit', carb: 'carb_edit', protein: 'protein_edit', calories: 'calories_edit' }));
-    document.getElementById('carb_edit').addEventListener('input', () => calculateCaloriesFor({ fat: 'fat_edit', carb: 'carb_edit', protein: 'protein_edit', calories: 'calories_edit' }));
-    document.getElementById('protein_edit').addEventListener('input', () => calculateCaloriesFor({ fat: 'fat_edit', carb: 'carb_edit', protein: 'protein_edit', calories: 'calories_edit' }));
-  }
+  
 
-  // Create (foodForm) - solo crear
+  // FORMUKARIO CREAR/EDITAR
   const foodFormEl = document.getElementById('foodForm');
   if (foodFormEl) {
     foodFormEl.addEventListener('submit', async (e) => {
       e.preventDefault();
-      if (!Alimento) return console.log('Modelo Alimento no disponible');
+      if (!Alimento) {
+        console.log('Modelo Alimento no disponible');
+        return;
+      }
+
+      // LOGS PARA VER ERRORES
+      // try {
+      //   console.log('Submitting form. modeSwitch checked:', !!document.getElementById('modeSwitch') && document.getElementById('modeSwitch').checked);
+      //   console.log('editFoodId:', document.getElementById('editFoodId')?.value, 'editSelect:', document.getElementById('editSelect')?.value);
+      //   console.log('fields ->', {
+      //     nombre: document.getElementById('name')?.value,
+      //     categoria: document.getElementById('category')?.value,
+      //     grasas: document.getElementById('fat')?.value,
+      //     carbohidratos: document.getElementById('carb')?.value,
+      //     proteinas: document.getElementById('protein')?.value,
+      //     calorias: document.getElementById('calories')?.value,
+      //   });
+      // } catch (logErr) { console.error('Error logging form state:', logErr); }
+
+      const modeSwitch = document.getElementById('modeSwitch');
+      const isEdit = modeSwitch && modeSwitch.checked;
 
       const nombre = document.getElementById('name').value.trim();
       const categoria = document.getElementById('category').value;
@@ -255,93 +285,110 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!nombre) return console.log('Rellena al menos el nombre');
 
       try {
-        const idField = await getNextId();
+        if (isEdit) {
+          const editId = parseInt(document.getElementById('editFoodId').value, 10) || parseInt(document.getElementById('editSelect')?.value, 10);
+          if (!editId) return console.log('Selecciona un alimento para editar');
 
-        // handle image input
-        let imagenRel = '';
-        const fileInput = document.getElementById('image');
-        if (fileInput && fileInput.files && fileInput.files.length > 0) {
-          const f = fileInput.files[0];
-          const safe = sanitizeName(nombre);
-          const copied = await copyImageFile(f, safe);
-          if (copied) imagenRel = copied;
-        }
+          const current = await Alimento.findOne({ id: editId });
+          let imagenRel = current && current.imagen ? current.imagen : '';
 
-        const nuevo = new Alimento({ id: idField, nombre, categoria, imagen: imagenRel, grasas, carbohidratos, proteinas, calorias });
-        await nuevo.save();
-        foodFormEl.reset();
-        cargarAlimentos();
-      } catch (err) {
-        console.error('Error creando alimento:', err);
-      }
-    });
-  }
+          // DETECTAR CAMBIOS
+          const fileInput = document.getElementById('image');
+          const imageSelected = fileInput && fileInput.files && fileInput.files.length > 0;
+          const nameChanged = String(nombre) !== String(current?.nombre);
+          const categoryChanged = String(categoria) !== String(current?.categoria);
+          const fatChanged = Number(grasas) !== Number(current?.grasas);
+          const carbChanged = Number(carbohidratos) !== Number(current?.carbohidratos);
+          const proteinChanged = Number(proteinas) !== Number(current?.proteinas);
+          const caloriesChanged = Number(calorias) !== Number(current?.calorias);
 
-  // Edit form submit
-  const editFormEl = document.getElementById('editForm');
-  if (editFormEl) {
-    editFormEl.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      if (!Alimento) return console.log('Modelo Alimento no disponible');
-      const editId = parseInt(document.getElementById('editFoodId').value, 10);
-      if (!editId) return console.log('Selecciona un alimento para editar');
-
-      const nombre = document.getElementById('name_edit').value.trim();
-      const categoria = document.getElementById('category_edit').value;
-      const grasas = parseFloat(document.getElementById('fat_edit').value) || 0;
-      const carbohidratos = parseFloat(document.getElementById('carb_edit').value) || 0;
-      const proteinas = parseFloat(document.getElementById('protein_edit').value) || 0;
-      const calorias = parseInt(document.getElementById('calories_edit').value, 10) || 0;
-
-      try {
-        // find current doc to manage images
-        const current = await Alimento.findOne({ id: editId });
-        let imagenRel = current && current.imagen ? current.imagen : '';
-
-        // check if new file uploaded
-        const fileInput = document.getElementById('image_edit');
-        if (fileInput && fileInput.files && fileInput.files.length > 0) {
-          const f = fileInput.files[0];
-          const safe = sanitizeName(nombre);
-          const copied = await copyImageFile(f, safe);
-          if (copied) imagenRel = copied;
-          // remove old file if different
-          if (current && current.imagen && current.imagen !== imagenRel) {
-            try { fs.unlinkSync(path.join(process.cwd(), current.imagen)); } catch (e) { /* ignore */ }
+          if (!imageSelected && !nameChanged && !categoryChanged && !fatChanged && !carbChanged && !proteinChanged && !caloriesChanged) {
+            alert('No hay cambios. Realiza al menos una modificación antes de guardar.');
+            return;
           }
-        } else {
-          // no new file: if name changed, rename existing image file
-          if (current && current.imagen && current.nombre !== nombre) {
+
+          // COMPRUEBA SI HAY UNA NUEVA IMAGEN O CAMBIOS EN EL NOMBRE
+          if (imageSelected) {
+            const f = fileInput.files[0];
             const safe = sanitizeName(nombre);
-            const renamed = renameImageFile(current.imagen, safe);
-            if (renamed) imagenRel = renamed;
+            const copied = await copyImageFile(f, safe);
+            if (copied) imagenRel = copied;
+            if (current && current.imagen && current.imagen !== imagenRel) {
+              try { fs.unlinkSync(path.join(process.cwd(), current.imagen)); } catch (e) { /* ignore */ }
+            }
+          } else {
+            if (current && current.imagen && current.nombre !== nombre) {
+              const safe = sanitizeName(nombre);
+              const renamed = renameImageFile(current.imagen, safe);
+              if (renamed) imagenRel = renamed;
+            }
           }
+
+          const update = { nombre, categoria, grasas, carbohidratos, proteinas, calorias };
+          if (imagenRel !== undefined) update.imagen = imagenRel;
+          console.log('Will update id', editId, 'with', update);
+          try {
+            const res = await Alimento.updateOne({ id: editId }, { $set: update });
+            console.log('updateOne result:', res);
+          } catch (updErr) {
+            console.error('Error during updateOne:', updErr);
+            throw updErr;
+          }
+          foodFormEl.reset();
+          document.getElementById('editFoodId').value = '';
+          cargarAlimentos();
+
+        } else {
+          const idField = await getNextId();
+          let imagenRel = '';
+          const fileInput = document.getElementById('image');
+          if (fileInput && fileInput.files && fileInput.files.length > 0) {
+            const f = fileInput.files[0];
+            const safe = sanitizeName(nombre);
+            const copied = await copyImageFile(f, safe);
+            if (copied) imagenRel = copied;
+          }
+
+          const nuevo = new Alimento({ id: idField, nombre, categoria, imagen: imagenRel, grasas, carbohidratos, proteinas, calorias });
+          await nuevo.save();
+          foodFormEl.reset();
+          cargarAlimentos();
         }
-
-        const update = { nombre, categoria, grasas, carbohidratos, proteinas, calorias };
-        if (imagenRel !== undefined) update.imagen = imagenRel;
-
-        await Alimento.updateOne({ id: editId }, { $set: update });
-        editFormEl.reset();
-        document.getElementById('editFoodId').value = '';
-        cargarAlimentos();
       } catch (err) {
-        console.error('Error actualizando alimento:', err);
+        console.error('Error procesando formulario:', err);
       }
     });
-
-    // when select changes, populate fields
-    const editSelectEl = document.getElementById('editSelect');
-    if (editSelectEl) {
-      editSelectEl.addEventListener('change', async (e) => {
-        const id = parseInt(e.currentTarget.value, 10);
-        if (!id) return;
-        const doc = await Alimento.findOne({ id });
-        if (doc) loadIntoEditForm(doc);
-      });
-    }
   }
 
-  // Init
+  // CAMBIO DE MODO CREAR/EDITAR DEL FORMULARIO
+  const modeSwitch = document.getElementById('modeSwitch');
+  if (modeSwitch) {
+    modeSwitch.addEventListener('change', () => {
+      const label = document.getElementById('formModeLabel');
+      const editControls = document.querySelector('.edit-controls');
+      if (modeSwitch.checked) {
+        if (label) label.textContent = 'EDITAR';
+        if (editControls) editControls.style.display = 'block';
+      } else {
+        if (label) label.textContent = 'CREAR';
+        if (editControls) editControls.style.display = 'none';
+        const hid = document.getElementById('editFoodId'); if (hid) hid.value = '';
+        const sel = document.getElementById('editSelect'); if (sel) sel.value = '';
+      }
+    });
+  }
+
+  // CARGA DATOS AL SELECCIONAR EN EL SELECT DE EDICIÓN
+  const editSelectEl = document.getElementById('editSelect');
+  if (editSelectEl) {
+    editSelectEl.addEventListener('change', async (e) => {
+      const id = parseInt(e.currentTarget.value, 10);
+      if (!id) return;
+      const doc = await Alimento.findOne({ id });
+      if (doc) loadIntoEditForm(doc);
+    });
+  }
+
+  // INICIAR DB Y CARGAR ALIMENTOS
   initDBAndLoad();
 });

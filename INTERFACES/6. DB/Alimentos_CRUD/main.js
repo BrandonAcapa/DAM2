@@ -3,11 +3,11 @@ require('@electron/remote/main').initialize()
 
 function createWindow() {
     mainWindow = new BrowserWindow({
-        width: 390,
-        height: 700,
+        width: 1200,
+        height: 800,
         useContentSize: true,
-        minWidth: 320,
-        minHeight: 568,
+        minWidth: 800,
+        minHeight: 600,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
@@ -15,7 +15,7 @@ function createWindow() {
     })
     require("@electron/remote/main").enable(mainWindow.webContents)
     mainWindow.loadFile('index.html')
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
     mainWindow.setMenu(null)
     mainWindow.on('closed', function () {
         mainWindow = null

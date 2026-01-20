@@ -1,3 +1,5 @@
+// CONEXIÓN: mongodb://localhost:27017/alimentos
+
 const mongoose = require('mongoose');
 
 const alimentoSchema = new mongoose.Schema({
@@ -69,7 +71,7 @@ async function inicializarDB(alimentos, options = { dropExisting: false }) {
 	}
 }
 
-// Datos de ejemplo (tomados de index.html)
+// DATOS DE EJEMPLO
 const ejemplosAlimentos = [
 	{
 		id: 1,
@@ -85,6 +87,7 @@ const ejemplosAlimentos = [
 		id: 2,
 		nombre: 'Lechuga',
 		categoria: 'Verdura',
+		imagen: 'img/lechuga.jpg',
 		grasas: 0.2,
 		carbohidratos: 2.9,
 		proteinas: 1.4,
@@ -94,10 +97,71 @@ const ejemplosAlimentos = [
 		id: 3,
 		nombre: 'Salmón',
 		categoria: 'Pescado',
+		imagen: 'img/salmon.jpg',
 		grasas: 13,
 		carbohidratos: 0,
 		proteinas: 20,
 		calorias: 197
+	},
+	{
+		id: 4,
+		nombre: 'Pollo',
+		categoria: 'Carne',
+		imagen: 'img/pollo.jpg',
+		grasas: 6.0,
+		carbohidratos: 0,
+		proteinas: 27,
+		calorias: 165
+	},
+	{
+		id: 5,
+		nombre: 'Yogur',
+		categoria: 'Lácteo',
+		imagen: 'img/yogur.jpg',
+		grasas: 3.3,
+		carbohidratos: 4.7,
+		proteinas: 3.5,
+		calorias: 61
+	},
+	{
+		id: 6,
+		nombre: 'Plátano',
+		categoria: 'Fruta',
+		imagen: 'img/platano.jpg',
+		grasas: 0.3,
+		carbohidratos: 23,
+		proteinas: 1.1,
+		calorias: 96
+	},
+	{
+		id: 7,
+		nombre: 'Zanahoria',
+		categoria: 'Verdura',
+		imagen: 'img/zanahoria.jpg',
+		grasas: 0.2,
+		carbohidratos: 10,
+		proteinas: 0.9,
+		calorias: 41
+	},
+	{
+		id: 8,
+		nombre: 'Ternera',
+		categoria: 'Carne',
+		imagen: 'img/ternera.jpg',
+		grasas: 15,
+		carbohidratos: 0,
+		proteinas: 26,
+		calorias: 250
+	},
+	{
+		id: 9,
+		nombre: 'Queso',
+		categoria: 'Lácteo',
+		imagen: 'img/queso.jpg',
+		grasas: 33,
+		carbohidratos: 1.3,
+		proteinas: 25,
+		calorias: 402
 	}
 ];
 

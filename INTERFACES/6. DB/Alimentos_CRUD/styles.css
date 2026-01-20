@@ -1,34 +1,93 @@
-
-/* Simple, classic CSS (no variables) */
 body {
 	font-family: Arial, Helvetica, sans-serif;
-	background-color: #f3f8f4; /* pastel green background */
-	color: #1f3d2f; /* dark pastel green text */
+	background-color: #cad9cd;
+	color: #12231a;
 	margin: 20px;
 }
 
 main {
-	max-width: 980px;
+	max-width: 1200px;
 	margin: 0 auto;
 }
 
+header {
+	text-align: center;
+	margin-bottom: 12px;
+}
+
 header h1 {
-	margin: 0 0 6px;
-	font-size: 1.4rem;
+	margin: 0 0 8px;
+	font-size: 2.6rem;
+	font-weight: 700;
 }
 
 header p {
-	margin: 0 0 14px;
-	color: #4f6b59;
+	margin: 0 0 16px;
+	color: #324439;
+	font-size: 1.4rem;
 }
 
-/* Form styling */
+.form-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 44px;
+	height: 24px;
+}
+
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 2px;
+	left: 2px;
+	right: 2px;
+	bottom: 2px;
+	background: #cbded0;
+	transition: 0.2s;
+	border-radius: 12px;
+	border: solid 1px #12231a;
+}
+
+.slider:before {
+	content: "";
+	position: absolute;
+	height: 18px;
+	width: 18px;
+	left: 3px;
+	top: 50%;
+	transform: translateY(-50%);
+	background: #fff;
+	border-radius: 50%;
+	transition: 0.2s;
+}
+.switch input:checked + .slider {
+	background: #3e8262;
+}
+
+.switch input:checked + .slider:before {transform: translateY(-50%) translateX(18px); }
+
+.edit-controls { margin-bottom: 10px; }
+
+/* FORMULARIO */
 form {
 	background-color: #ffffff;
-	padding: 12px;
+	padding: 10px;
 	border-radius: 8px;
 	border: 1px solid #dfeee0;
 	margin-bottom: 16px;
+	max-width: 480px;
 }
 
 form div {
@@ -46,11 +105,18 @@ input[type="text"],
 input[type="number"],
 input[readonly],
 select {
+	box-sizing: border-box;
 	width: 100%;
+	max-width: 100%;
 	padding: 8px;
 	border-radius: 4px;
 	border: 1px solid #cfe5d6;
 	background: #ffffff;
+}
+
+input[type="file"] {
+	max-width: 100%;
+	box-sizing: border-box;
 }
 
 fieldset {
@@ -64,7 +130,6 @@ legend {
 	color: #476a56;
 }
 
-/* Buttons */
 button {
 	background-color: #1f3d2f;
 	color: #ffffff;
@@ -80,7 +145,6 @@ button[type="reset"] {
 	border: 1px solid #cfe5d6;
 }
 
-/* Table */
 table {
 	width: 100%;
 	border-collapse: collapse;
@@ -109,17 +173,6 @@ td button {
 	cursor: pointer;
 }
 
-td button:first-child {
-	background: #8bc34a; /* edit */
-	color: #fff;
-}
-
-td button:last-child {
-	background: #ef4444; /* delete */
-	color: #fff;
-}
-
-/* Simple responsive: stack rows on small screens */
 @media (max-width: 360px) {
 	table, thead, tbody, th, td, tr { display: block; }
  	thead { display: none; }
@@ -127,10 +180,10 @@ td button:last-child {
  	td { display: flex; justify-content: space-between; padding: 6px 8px; border-bottom: none; }
 }
 
-/* Cards layout */
+/* CARDS LAYOUT */
 .cards-grid {
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	grid-template-columns: repeat(3, 1fr);
 	gap: 12px;
 	margin-bottom: 16px;
 }
@@ -174,10 +227,35 @@ td button:last-child {
 .card-actions { margin-top: 8px; }
 .card-actions button { margin-right: 8px; }
 
-/* Card specific button colors */
-.card-actions .edit-btn { background: #1f3d2f; color: #fff; }
-.card-actions .delete-btn { background: #ef4444; color: #fff; }
+.card-actions .edit-btn { background: #3e8262; color: #fff; }
+.card-actions .delete-btn { background: #e63535; color: #fff; }
 
 @media (max-width: 360px) {
 	.cards-grid { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 900px) {
+	main {
+		display: grid;
+		grid-template-columns: 2fr 1fr;
+		gap: 18px;
+		align-items: start;
+	}
+
+	header {
+		grid-column: 1 / -1;
+	}
+
+	.cards-section {
+		grid-column: 1;
+	}
+
+	.add-form-section,
+	.edit-form-section {
+		grid-column: 2;
+	}
+
+	.cards-grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
 }
