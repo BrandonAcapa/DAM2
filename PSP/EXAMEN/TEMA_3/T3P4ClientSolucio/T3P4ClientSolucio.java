@@ -3,14 +3,14 @@ import java.util.Scanner;
 import java.io.*;
 
 public class T3P4ClientSolucio {
-	// REBEM EN args MISSATGE, HOST DESTINACIÓ I PORT
+	// REBEM EN args MISSATGE, HOST DESTINACIO I PORT
 	public static void main(String args[]) {
 
 		DatagramSocket dSocket = null;
 
 		// CONTROL ENTRADA ARGUMENTS
 		if (args.length < 2) {
-			System.out.println("Utilització: java T3P4ClientSolucio <nom del Host> <número de port>");
+			System.out.println("Utilitzacio: java T3P4ClientSolucio <nom del Host> <numero de port>");
 			System.exit(1);
 		}
 		try {
@@ -28,7 +28,7 @@ public class T3P4ClientSolucio {
 			DatagramPacket dpEnviament = new DatagramPacket(missatgeEnviat, cadena.length(), aHost, serverPort); // DATAGRAMA A ENVIAR
 			dSocket.send(dpEnviament); // ENVIE EL DATAGRAMA
 
-			// RECEPCIÓ DEL DATAGRAMA
+			// RECEPCIO DEL DATAGRAMA
 			byte[] missatgeRebut = new byte[1000];
 			DatagramPacket dpResposta = new DatagramPacket(missatgeRebut, missatgeRebut.length);
 			dSocket.receive(dpResposta); // REP EL DATAGRAMA

@@ -1,0 +1,98 @@
+TEMA 3:
+
+Progreso: he leído los 15 archivos .java del proyecto; abajo tienes un resumen conciso de qué hace cada uno.
+
+T3S2Exemple1_UDPServidor.java: Servidor UDP tipo "echo": recibe datagramas, imprime el mensaje recibido y reenvía exactamente los mismos datos al remitente.
+T3P4ClientSolucio.java: Cliente UDP interactivo: pide un mensaje por consola, lo envía a host/puerto pasados por argumentos y muestra la respuesta del servidor.
+T3S1Exemple1_InetAddress.java: Ejemplo de InetAddress: obtiene y muestra la IP, nombre y InetAddress de www.gva.es y de localhost. (La clase en el código aparece como U3Exemple1_InetAddress.)
+Servidor.java: Servidor TCP simple en puerto 5000: acepta conexión, lee cadenas con DataInputStream, envía respuestas fijas con DataOutputStream y cierra la conexión (manejo secuencial básico).
+Servidor.java: Servidor TCP que atiende en bucle por cliente: lee mensajes UTF y responde según switch ("Hola", "Com estàs", "Adeu", etc.) hasta recibir "Adeu".
+Client.java: Cliente TCP interactivo correspondiente: se conecta y permite enviar cadenas desde consola, mostrando las respuestas hasta "Adeu".
+T3P6UDPServidor.java: Servidor UDP que recibe una fecha en formato dd-MM-yyyy, la parsea, normaliza (corrige fechas inválidas por parseo) y devuelve la misma fecha más el día de la semana (en catalán).
+T3P6UDPClient.java: Cliente UDP que solicita día/mes/año por consola, construye la cadena d-m-yyyy, la envía al servidor y muestra la respuesta (día de la semana).
+Client.java: Cliente TCP no interactivo que se conecta al servidor del ejercicio P2 y envía secuencialmente "Hola", "Com estas", "Adeu", mostrando las respuestas.
+Servidor.java: Servidor TCP "eterno": en bucle acepta conexiones, para cada una envía "Hola client" y cierra el socket (ejemplo de servidor que responde y finaliza conexión).
+T3P5Servidor.java: Servidor de teatro: mantiene arrays con tipos de butacas, precios y cantidades; procesa comandos del cliente para ver butacas disponibles, reservar (decrementar stock) o terminar ("Fi"), respondiendo texto descriptivo.
+T3S2Exemple1_UDPClient.java: Cliente UDP ejemplo: envía un mensaje (argumento) a host/puerto y espera la respuesta (eco).
+T3P5Client.java: Cliente para el servidor de teatro: se conecta por TCP, envía "Hola", luego pide por consola códigos de butaca para reservar y muestra las respuestas hasta enviar "Fi".
+Servidor.java: Servidor TCP de ejemplo: en bucle acepta clientes, envía "Hola client" y cierra (similar a otros ejemplos, demostración básica de ServerSocket).
+Client.java: Cliente TCP de ejemplo: conecta al servidor, lee un readUTF y muestra el mensaje, luego cierra.
+
+TEMA 4:
+
+Perfecto, he leído todos los archivos Java del workspace. Te voy a explicar qué hace cada uno organizado por proyectos:
+
+T4S1Exemples - Ejemplos de Serialización
+T4S1Exemple1_SerializacioAFitxer (Serialización a archivo)
+Empleat.java: Clase serializable que representa un empleado con id, nombre, departamento y nivel.
+
+EmpleatPrincipal.java: Crea un objeto Empleat, lo serializa (guarda) en un archivo de texto, luego lo deserializa (lee) del archivo y muestra los valores.
+
+T4S1Exemple2_SerialitzacioTCP (Serialización mediante TCP)
+Persona.java: Clase serializable con nombre y edad.
+
+Cliente.java: Se conecta al servidor por TCP, crea un objeto Persona y lo envía serializado.
+
+Servidor.java: Espera conexiones TCP, recibe el objeto Persona serializado y muestra sus datos.
+
+T4S1Exemple3_SerialitzacioUDP (Serialización mediante UDP)
+Persona.java: Igual que el anterior, clase serializable con nombre y edad.
+
+Client.java: Convierte un objeto Persona a bytes, lo envía por UDP al servidor y espera respuesta.
+
+Servidor.java: Recibe datagramas UDP, convierte los bytes a objeto Persona, lo procesa y responde al cliente.
+
+T4S1Solucions - Soluciones de ejercicios
+T4S1P1HeEstatEnElServidorSOLUCIÓ (Cliente-Servidor bidireccional)
+Persona.java: Clase serializable con nombre y edad.
+
+Client.java: Envía un objeto Persona al servidor y espera recibirlo modificado de vuelta.
+
+Servidor.java: Recibe un objeto Persona, modifica su nombre añadiendo " he estat al servidor" y lo devuelve al cliente.
+
+T4S1P2ConcessionariSOLUCIÓ (Concesionario de vehículos)
+Vehicle.java: Clase serializable que representa un vehículo con DNI del propietario, matrícula, marca, modelo, combustible y año.
+
+Cliente.java: Pide datos del vehículo por consola, crea un objeto Vehicle y lo envía al servidor.
+
+Servidor.java: Recibe objetos Vehicle de múltiples clientes y los guarda serializados en un archivo de texto.
+
+T4S2Exemple1_MultiFil - Servidor Multihilo
+Client.java: Cliente que envía cadenas de texto al servidor y recibe las mismas en mayúsculas. Finaliza con "*".
+
+FilServidor.java: Hilo del servidor que atiende a un cliente específico. Recibe cadenas, las convierte a mayúsculas y las devuelve.
+
+Servidor.java: Servidor que acepta múltiples clientes y crea un hilo (FilServidor) para atender a cada uno.
+
+T4S2P3QuizMagic - Quiz interactivo
+Client.java: Cliente que introduce su nombre, recibe preguntas del servidor, envía respuestas y al final recibe su puntuación.
+
+FilServidor.java: Hilo del servidor que lee preguntas de un archivo, las envía al cliente, compara las respuestas, calcula la puntuación y la guarda en un archivo.
+
+Servidor.java: Servidor multihilo que acepta conexiones y crea un FilServidor para cada cliente.
+
+T4S3Exemples - Chat y Multicast
+T2S3Ex1XatTCP (Chat TCP con interfaz gráfica)
+ClientXat.java: Cliente de chat con interfaz Swing. Permite enviar mensajes y desconectarse. Muestra los mensajes del chat en un JTextArea.
+
+FilServidor.java: Hilo que gestiona cada cliente del chat. Recibe mensajes de un cliente y los reenvía a todos los clientes conectados.
+
+ServidorXat.java: Servidor de chat con interfaz gráfica que acepta hasta 10 clientes simultáneos y mantiene un array con todos los sockets.
+
+T4S3Ex2MulticastSocketUDP (Comunicación Multicast)
+HostEmissor.java: Emisor que envía 5 datagramas al grupo multicast 224.0.0.3:8888.
+
+HostReceptorGrupMulticastSocket.java: Receptor que se une al grupo multicast y recibe todos los mensajes enviados al grupo en un bucle infinito.
+
+U4P3ChatUDPMulticast - Chat híbrido UDP/Multicast
+ClienteChat.java: Cliente de chat con interfaz Swing. Envía mensajes al servidor por UDP normal y recibe el chat completo por multicast (grupo 224.0.0.3:55555).
+
+ServidorChat.java: Servidor con interfaz gráfica que recibe mensajes de clientes por UDP en el puerto 44444 y los retransmite a todos los clientes por multicast en el puerto 55555.
+
+En resumen:
+
+T4S1: Ejemplos de serialización (a archivo, TCP, UDP)
+T4S1Solucions: Soluciones con comunicación bidireccional y persistencia
+T4S2: Servidores multihilo para atender varios clientes simultáneamente
+T4S3: Aplicaciones de chat con TCP y comunicación multicast UDP
+U4P3: Chat híbrido que combina UDP unicast y multicast
