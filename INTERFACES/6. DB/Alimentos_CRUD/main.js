@@ -15,7 +15,7 @@ function createWindow() {
     })
     require("@electron/remote/main").enable(mainWindow.webContents)
     mainWindow.loadFile('index.html')
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
     mainWindow.setMenu(null)
     mainWindow.on('closed', function () {
         mainWindow = null
