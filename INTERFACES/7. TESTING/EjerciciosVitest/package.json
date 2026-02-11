@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "vitest": "^4.0.16"
+    "test": "^3.3.0",
+    "vitest": "^4.0.18"
   }
 }
