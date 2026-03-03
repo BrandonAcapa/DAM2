@@ -9,5 +9,9 @@ interface QuoteRepository {
 
     suspend fun toggleFavorite(quote: Quote)
 
+    fun searchQuotes(query: String): Flow<List<Quote>>
 
+    fun getQuoteById(id: Int): Flow<Quote?>
+
+    fun getRandomQuote(): Flow<Quote?>
 }
