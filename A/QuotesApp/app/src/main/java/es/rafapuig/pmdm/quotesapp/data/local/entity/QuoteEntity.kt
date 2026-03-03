@@ -16,5 +16,5 @@ data class QuoteEntity(
     val author: String,
 
     @ColumnInfo(name = "favorito")
-    val is_favorite: Boolean = false
+    val isFavorite: Boolean = false
 )

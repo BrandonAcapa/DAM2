@@ -26,7 +26,7 @@ interface QuoteDAO {
     fun searchQuotes(query: String): Flow<List<QuoteEntity>>
 
     @Query("SELECT * FROM quotes ORDER BY RANDOM() LIMIT 1")
-    fun getRandomQuote()
+    fun getRandomQuote(): Flow<QuoteEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertQuote(quote: QuoteEntity)
