@@ -1,4 +1,4 @@
-package es.rafapuig.pmdm.quotesapp.ui.screens
+package es.rafapuig.pmdm.quotesapp.presentation.screens.details
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
@@ -15,42 +15,38 @@ import androidx.compose.ui.tooling.preview.Preview
 import es.rafapuig.pmdm.quotesapp.data.QuoteProvider
 import es.rafapuig.pmdm.quotesapp.domain.model.Quote
 import es.rafapuig.pmdm.quotesapp.ui.LocalOnNavigationBack
-import es.rafapuig.pmdm.quotesapp.ui.components.QuoteDetails
-import es.rafapuig.pmdm.quotesapp.ui.components.TopAppBarWithBackNavigationButton
+import es.rafapuig.pmdm.quotesapp.presentation.screens.details.components.QuoteDetails
+import es.rafapuig.pmdm.quotesapp.presentation.components.TopAppBarWithBackNavigationButton
 import es.rafapuig.pmdm.quotesapp.ui.theme.QuotesTheme
-import es.rafapuig.pmdm.quotesapp.ui.utils.share
+import es.rafapuig.pmdm.quotesapp.presentation.utils.share
 
 @Composable
 fun QuoteDetailsScreen(
-    quote: Quote?,
-    onFavorite: (Int) -> Unit = {},
-    onBack: () -> Unit = LocalOnNavigationBack.current
+    quote: Quote?, // La cita a mostrar (puede ser nula mientras carga)
+    onAction: (QuoteDetailsAction) -> Unit, // Acciones de detalle
+    onBack: () -> Unit // Callback de navegación
 ) {
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
         topBar = {
             TopAppBarWithBackNavigationButton(
-                title = "Cita de ${quote?.author}",
+                title = "Cita de ${quote?.author ?: ""}",
                 onBack = onBack
             )
         }
     ) { innerPadding ->
-        val isLandscape =
-            LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
-
-        val modifier = if (isLandscape)
-            Modifier.padding(innerPadding) else Modifier
-
-        quote?.let { quote ->
-            val context = LocalContext.current
+        quote?.let { currentQuote ->
             QuoteDetails(
-                quote = quote,
+                quote = currentQuote,
                 modifier = Modifier.padding(innerPadding),
-                onFavoriteClick = onFavorite,
-                onShareClick = { quote -> quote.share(context) }
+                // Mapeo directo de interacciones a acciones MVI
+                onAction = { onAction(QuoteDetailsAction.OnFavoriteClick) },
+                onShareClick = { onAction(QuoteDetailsAction.OnShareClick) }
             )
         } ?: run {
-            ErrorScreen()
+            // Pantalla de error o carga si la cita no existe
+            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Text("Cita no encontrada")
+            }
         }
     }
 }
@@ -70,7 +66,9 @@ fun ErrorScreen() {
 fun QuoteDetailsScreenPreview() {
     QuotesTheme {
         QuoteDetailsScreen(
-            QuoteProvider.getQuoteById(1) // null
+            quote = QuoteProvider.programmingQuotes.first(),
+            onAction = {},
+            onBack = {}
         )
     }
 }

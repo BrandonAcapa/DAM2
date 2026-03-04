@@ -1,4 +1,4 @@
-package es.rafapuig.pmdm.quotesapp.ui.screens
+package es.rafapuig.pmdm.quotesapp.presentation.screens.about
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import coil3.compose.AsyncImage
 import es.rafapuig.pmdm.quotesapp.ui.LocalOnNavigationBack
-import es.rafapuig.pmdm.quotesapp.ui.components.TopAppBarWithBackNavigationButton
+import es.rafapuig.pmdm.quotesapp.presentation.components.TopAppBarWithBackNavigationButton
 import es.rafapuig.pmdm.quotesapp.ui.googleLogoUrl
 import es.rafapuig.pmdm.quotesapp.ui.theme.QuotesTheme
 

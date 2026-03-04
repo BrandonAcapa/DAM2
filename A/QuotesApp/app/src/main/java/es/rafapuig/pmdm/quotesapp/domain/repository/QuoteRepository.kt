@@ -14,4 +14,5 @@ interface QuoteRepository {
     fun getQuoteById(id: Int): Flow<Quote?>
 
     fun getRandomQuote(): Flow<Quote?>
+    fun getAllQuotes(): Any
 }

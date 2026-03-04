@@ -1,4 +1,4 @@
-package es.rafapuig.pmdm.quotesapp.ui.components
+package es.rafapuig.pmdm.quotesapp.presentation.screens.details.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,13 +23,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import es.rafapuig.pmdm.quotesapp.data.QuoteProvider
 import es.rafapuig.pmdm.quotesapp.domain.model.Quote
+import es.rafapuig.pmdm.quotesapp.presentation.components.QuoteImage
+import es.rafapuig.pmdm.quotesapp.presentation.components.QuoteText
 
 
 @Composable
 fun QuoteDetails(
     quote: Quote,
     modifier: Modifier = Modifier,
-    onFavoriteClick: (Int) -> Unit = {},
+    onAction: (Int) -> Unit = {},
     onShareClick: (Quote) -> Unit = {}
 ) {
     Column(
@@ -69,7 +71,7 @@ fun QuoteDetails(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             SuggestionChip(
-                onClick = { onFavoriteClick(quote.id) },
+                onClick = { onAction(quote.id) },
                 label = {
                     Text(text = "Favoritos")
                 },

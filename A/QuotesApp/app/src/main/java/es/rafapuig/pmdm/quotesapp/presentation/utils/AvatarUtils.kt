@@ -1,4 +1,4 @@
-package es.rafapuig.pmdm.quotesapp.ui.utils
+package es.rafapuig.pmdm.quotesapp.presentation.utils
 
 import androidx.compose.ui.graphics.Color
 import es.rafapuig.pmdm.quotesapp.domain.model.Quote

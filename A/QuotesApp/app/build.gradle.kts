@@ -49,6 +49,12 @@ dependencies {
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.lifecycle.viewmodel.navigation3) // Para Entradas con ViewModel
 
+    // Navegación con Compose (Fundamental para NavHost y composable)
+    implementation("androidx.navigation:navigation-compose:2.8.5")
+
+    // Ciclo de vida para collectAsStateWithLifecycle (Si te falla el State)
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
+
     // Koin
     implementation(libs.koin.androidx.compose)
 

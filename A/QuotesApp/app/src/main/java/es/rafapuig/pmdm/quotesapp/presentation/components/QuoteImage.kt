@@ -1,4 +1,4 @@
-package es.rafapuig.pmdm.quotesapp.ui.components
+package es.rafapuig.pmdm.quotesapp.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize

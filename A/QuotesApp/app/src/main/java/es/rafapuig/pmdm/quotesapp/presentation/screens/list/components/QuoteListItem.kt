@@ -1,4 +1,4 @@
-package es.rafapuig.pmdm.quotesapp.ui.components
+package es.rafapuig.pmdm.quotesapp.presentation.screens.list.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -25,8 +25,9 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import es.rafapuig.pmdm.quotesapp.data.QuoteProvider
 import es.rafapuig.pmdm.quotesapp.domain.model.Quote
-import es.rafapuig.pmdm.quotesapp.ui.utils.avatarColor
-import es.rafapuig.pmdm.quotesapp.ui.utils.avatarInitial
+import es.rafapuig.pmdm.quotesapp.presentation.components.QuoteAvatar
+import es.rafapuig.pmdm.quotesapp.presentation.utils.avatarColor
+import es.rafapuig.pmdm.quotesapp.presentation.utils.avatarInitial
 
 
 @Composable

@@ -10,9 +10,9 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import es.rafapuig.pmdm.quotesapp.data.QuoteProvider
 import es.rafapuig.pmdm.quotesapp.domain.QuoteManager
-import es.rafapuig.pmdm.quotesapp.ui.screens.AboutScreen
-import es.rafapuig.pmdm.quotesapp.ui.screens.QuoteDetailsScreen
-import es.rafapuig.pmdm.quotesapp.ui.screens.QuoteListScreen
+import es.rafapuig.pmdm.quotesapp.presentation.screens.about.AboutScreen
+import es.rafapuig.pmdm.quotesapp.presentation.screens.details.QuoteDetailsScreen
+import es.rafapuig.pmdm.quotesapp.presentation.screens.list.QuoteListScreen
 import kotlinx.serialization.Serializable
 
 

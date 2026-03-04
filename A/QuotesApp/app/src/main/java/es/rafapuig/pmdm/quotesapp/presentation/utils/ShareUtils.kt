@@ -1,4 +1,4 @@
-package es.rafapuig.pmdm.quotesapp.ui.utils
+package es.rafapuig.pmdm.quotesapp.presentation.utils
 
 import android.content.Context
 import android.content.Intent

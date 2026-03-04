@@ -1,4 +1,4 @@
-package es.rafapuig.pmdm.quotesapp.ui.components
+package es.rafapuig.pmdm.quotesapp.presentation.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
