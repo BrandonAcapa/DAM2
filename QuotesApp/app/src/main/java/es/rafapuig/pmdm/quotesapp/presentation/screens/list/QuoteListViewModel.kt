@@ -7,6 +7,7 @@ import es.rafapuig.pmdm.quotesapp.domain.usecase.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
@@ -56,11 +57,15 @@ class QuoteListViewModel(
     private val _events = Channel<QuoteListEvent>()
     val events = _events.receiveAsFlow()
 
-    init{
-        _uiState.map { it.query }
-            .distinctUntilChanged()
-            .flatMapLatest{ query ->
-                getFilteredQuotesUseCase(query)
+    init {
+        combine(
+            _uiState.map { it.query }.distinctUntilChanged(),
+            _uiState.map { it.showFilterFavorites }.distinctUntilChanged()
+        ) { query, favoritesOnly ->
+            Pair(query, favoritesOnly)
+        }
+            .flatMapLatest { (query, favoritesOnly) ->
+                getFilteredQuotesUseCase(query, favoritesOnly)
             }
             .onEach { filteredQuotes ->
                 _uiState.update { it.copy(quotes = filteredQuotes) }
@@ -94,7 +99,7 @@ class QuoteListViewModel(
 
     private fun handleRandomQuote() {
         viewModelScope.launch {
-            getRandomQuoteUseCase().collect { quote ->
+            getRandomQuoteUseCase().first()?.let { quote ->
                 quote?.let { _events.send(QuoteListEvent.OnNavigateToQuoteDetails(it.id)) }
             }
         }

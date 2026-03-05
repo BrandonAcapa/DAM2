@@ -41,7 +41,7 @@ fun AboutScreen(
             )
             Text(text = "Acerca de la aplicación")
             Text(text = "Versión 1.0")
-            Text(text = "Desarrollado por Rafael Puig")
+            Text(text = "Desarrollado por Brandon Acapa")
         }
     }
 }

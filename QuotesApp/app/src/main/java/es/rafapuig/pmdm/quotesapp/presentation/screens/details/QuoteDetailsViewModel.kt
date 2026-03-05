@@ -80,15 +80,13 @@ class QuoteDetailsViewModel(
 @Composable
 fun QuoteDetailsRoute(
     viewModel: QuoteDetailsViewModel,
-    quoteId: Int, // Identificador de la cita
-    onBack: () -> Unit // Callback para volver atrás
+    quoteId: Int,
+    onBack: () -> Unit
 ) {
     val context = LocalContext.current
 
-    // 1. Observar el estado de la cita
     val quote by viewModel.uiState.collectAsStateWithLifecycle()
 
-    // 2. Procesar eventos de un solo uso (Compartir)
     viewModel.events.ObserveAsEvents { event ->
         when (event) {
             is QuoteDetailsEvent.OnShare -> {
@@ -97,8 +95,6 @@ fun QuoteDetailsRoute(
         }
     }
 
-    // 3. Llamar a la pantalla de detalle
-    // Pasamos la cita actual y delegamos las acciones al viewModel
     QuoteDetailsScreen(
         quote = quote,
         onAction = { action -> viewModel.onAction(action) },

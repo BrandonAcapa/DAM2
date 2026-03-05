@@ -29,8 +29,8 @@ import es.rafapuig.pmdm.quotesapp.ui.theme.QuotesTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QuoteListScreen(
-    state: QuoteListUiState, // Recibe el estado completo del ViewModel
-    onAction: (QuoteListAction) -> Unit // Canal único para todas las acciones
+    state: QuoteListUiState,
+    onAction: (QuoteListAction) -> Unit
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
@@ -42,7 +42,7 @@ fun QuoteListScreen(
                 // Delegamos cada interacción a una acción específica
                 onRandom = { onAction(QuoteListAction.OnRandomQuote) },
                 onSearch = { onAction(QuoteListAction.OnToggleSearchBar) },
-                toggleFavorite = state.showFilterFavorites, // Usamos el valor del estado
+                toggleFavorite = state.showFilterFavorites,
                 onFavorite = { onAction(QuoteListAction.OnToggleFilterFavorites) },
                 onAbout = { onAction(QuoteListAction.OnAbout) }
             )
@@ -53,7 +53,7 @@ fun QuoteListScreen(
                 item {
                     SearchBar(
                         query = state.query,
-                        onQueryChange = { onAction(QuoteListAction.OnQueryChange(it)) } //
+                        onQueryChange = { onAction(QuoteListAction.OnQueryChange(it)) }
                     )
                 }
             }
@@ -61,8 +61,8 @@ fun QuoteListScreen(
             items(state.quotes) { quote ->
                 QuoteListItem(
                     quote = quote,
-                    onQuoteClick = { onAction(QuoteListAction.OnQuoteSelected(quote.id)) }, //
-                    onFavoriteClick = { onAction(QuoteListAction.OnToggleFavorite(quote.id)) } //
+                    onQuoteClick = { onAction(QuoteListAction.OnQuoteSelected(quote.id)) },
+                    onFavoriteClick = { onAction(QuoteListAction.OnToggleFavorite(quote.id)) }
                 )
             }
         }

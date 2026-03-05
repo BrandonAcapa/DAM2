@@ -19,7 +19,7 @@ fun NavigationRoot(
         navController = navController,
         startDestination = "quote_list"
     ) {
-        // 1. Pantalla de Lista
+        // Pantalla de Lista
         composable("quote_list") {
             QuoteListRoute(
                 viewModel = koinViewModel(),
@@ -32,7 +32,7 @@ fun NavigationRoot(
             )
         }
 
-        // 2. Pantalla de Detalle
+        // Pantalla de Detalle
         composable("quote_details/{quoteId}") { backStackEntry ->
             val quoteId = backStackEntry.arguments?.getString("quoteId")?.toIntOrNull() ?: 0
 
@@ -45,7 +45,7 @@ fun NavigationRoot(
             )
         }
 
-        // 3. Pantalla de About
+        // Pantalla de About
         composable("about") {
             AboutScreen(
                 onBack = { navController.popBackStack() }

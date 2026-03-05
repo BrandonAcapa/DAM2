@@ -9,7 +9,6 @@ class QuoteApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // Esto es lo que falta para que la app no explote
         startKoin {
             androidContext(this@QuoteApp)
             modules(appModule)

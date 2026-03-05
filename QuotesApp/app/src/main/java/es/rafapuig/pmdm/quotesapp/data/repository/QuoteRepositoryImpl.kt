@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import es.rafapuig.pmdm.quotesapp.data.local.QuoteDAO
 import es.rafapuig.pmdm.quotesapp.data.local.toDomain
+import es.rafapuig.pmdm.quotesapp.data.local.toEntity
 import es.rafapuig.pmdm.quotesapp.domain.model.Quote
 import es.rafapuig.pmdm.quotesapp.domain.repository.QuoteRepository
 
@@ -16,7 +17,8 @@ class QuoteRepositoryImpl(private val quoteDao: QuoteDAO) : QuoteRepository {
         }
 
     override suspend fun toggleFavorite(quote: Quote) {
-        quoteDao.toggleFavorite(quote.id)
+        val updatedEntity = quote.toEntity().copy(isFavorite = !quote.isFavorite)
+        quoteDao.updateQuote(updatedEntity)
     }
 
     override fun searchQuotes(query: String): Flow<List<Quote>> =

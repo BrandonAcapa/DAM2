@@ -18,9 +18,9 @@ import es.rafapuig.pmdm.quotesapp.ui.theme.QuotesTheme
 
 @Composable
 fun QuoteDetailsScreen(
-    quote: Quote?, // La cita a mostrar (puede ser nula mientras carga)
-    onAction: (QuoteDetailsAction) -> Unit, // Acciones de detalle
-    onBack: () -> Unit // Callback de navegación
+    quote: Quote?,
+    onAction: (QuoteDetailsAction) -> Unit,
+    onBack: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -34,12 +34,10 @@ fun QuoteDetailsScreen(
             QuoteDetails(
                 quote = currentQuote,
                 modifier = Modifier.padding(innerPadding),
-                // Mapeo directo de interacciones a acciones MVI
                 onAction = { onAction(QuoteDetailsAction.OnFavoriteClick) },
                 onShareClick = { onAction(QuoteDetailsAction.OnShareClick) }
             )
         } ?: run {
-            // Pantalla de error o carga si la cita no existe
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text("Cita no encontrada")
             }
